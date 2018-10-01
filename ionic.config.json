@@ -1,0 +1,8 @@
+{
+  "name": "rubik-timer",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "c4863a69"
+}
