@@ -6,11 +6,21 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { TimerPage } from '../pages/timer/timer';
+import { HistoryPage } from '../pages/history/history';
+
+
+
+
+import { FromMillisPipe } from '../pipes/from-millis/from-millis';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    TimerPage,
+    HistoryPage,
+    FromMillisPipe
   ],
   imports: [
     BrowserModule,
@@ -19,7 +29,9 @@ import { HomePage } from '../pages/home/home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    TimerPage,
+    HistoryPage
   ],
   providers: [
     StatusBar,
