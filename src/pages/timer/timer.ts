@@ -18,11 +18,13 @@ export class TimerPage {
   time: number;
   loop: number;
   start:number;
+  records:number[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.time = 0;
     this.start = 0;
-    this.run();
+    this.loop = 0;
+    this.records = [];
   }
 
   ionViewDidLoad() {
@@ -33,7 +35,21 @@ export class TimerPage {
     this.start = Date.now();
     this.loop = setInterval(() => {
       this.time = Date.now() - this.start;
-    }, 200);
+    }, 5);
   }
 
+  stop ( ) {
+    clearInterval( this.loop );
+    this.loop = 0;
+  }
+
+  takeTime() {
+    if( this.loop == 0 ){
+      this.time = 0;
+      this.run();
+    }else{
+      this.stop();
+      this.records.push( this.time );      
+    }
+  }
 }

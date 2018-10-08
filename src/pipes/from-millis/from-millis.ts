@@ -13,16 +13,23 @@ export class FromMillisPipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(value: number, ...args):string {
-    let mi:number = value % 1000;
-    let s:number = Math.floor( value/1000 );
-    let m:number = Math.floor( s/60 )
-    let h:number = Math.floor( m/60 );
-    let result:string;
-    if(h > 0){
-      result = `${h}:${m}:${s}:${mi}`;
-    }else{
-      result = `${m}:${s}:${mi}`;
-    }
-    return result;
+    let mi:number = value % 1000,
+        s:number = Math.floor( (value/1000)%60 ),
+        m:number = Math.floor( (value/1000)/60 ),
+        h:number = Math.floor( m/60 );
+
+    return (h > 0)
+      ? `${h}:${this.twoDigits( m )}:${this.twoDigits( s )}:${this.millisTwoDigits( mi )}`
+      : `${m}:${this.twoDigits( s )}:${this.millisTwoDigits( mi )}`;
+  }
+
+  twoDigits ( value:number ):string {
+      return (value.toString().length == 1)?'0' + value.toString():value.toString();
+  }
+
+  millisTwoDigits( value:number ):string {
+    return ( value.toString().length == 1) 
+          ? value.toString() + '0'
+          : value.toString().slice(0, 2);
   }
 }

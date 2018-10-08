@@ -6,6 +6,14 @@
 </ion-header>
 
 
-<ion-content padding text-center>
-  <h1>[ {{ time | fromMillis }} ]</h1>
+<ion-content>
+  <div class="time" text-center>
+    <h1 (click)="takeTime() ">[ {{ time | fromMillis }} ]</h1>
+  </div>
+  <!--
+    TODO: Promedio de la sessión en curso
+  -->
+  <div class="records">
+    <span *ngFor="let record of records; let i = index">{{ i+1 }}. {{ record | fromMillis }} </span>
+  </div>
 </ion-content>

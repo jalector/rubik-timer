@@ -1,3 +1,21 @@
 page-timer {
-
+    div.scroll-content{
+        background: color($colors, primary);
+    }
+    div.time{
+        h1{
+            font-size: 5em;
+        }
+    }
+    div.records{
+        display: grid;
+        padding: 10px;
+        span{
+            font-size: 2em;
+            background: color($colors, light);
+            border-radius: 5px;
+            margin-top: 5px;
+            padding: 5px 0px 5px 10px;
+        }
+    }
 }
