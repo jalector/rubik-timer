@@ -1,3 +1,43 @@
 page-history {
+    div.scroll-content{
+        background: color($colors, dark);
+    }
+    div.title{
+        border: 1px solid white;
+        border-radius: 8px;
+        color: white;
+        font-size: 2em;
+        text-align: center;
+        margin: 10px 0px;
+    }
+    div.session{
+        border: 1px solid white;
+        border-radius: 8px;
+        padding: 10px;
+        color: white;        
+        margin: 10px 0px 0px 0px;
 
+        div.date{
+
+        }
+
+        div.avg{
+            border: 1px solid white;
+            border-radius: 8px;
+            text-align: center;
+        }
+        div.records{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr)
+            span{
+                border: 1px solid white;
+                border-radius: 8px;
+                background: white;
+                color: black;
+                padding: 5px 10px;
+                margin: 5px 0px 0px 0px;
+
+            }
+        }
+    }
 }

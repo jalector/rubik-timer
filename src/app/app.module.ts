@@ -13,6 +13,7 @@ import { HistoryPage } from '../pages/history/history';
 
 
 import { FromMillisPipe } from '../pipes/from-millis/from-millis';
+import { GlobalRequestProvider } from '../providers/global-request/global-request';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FromMillisPipe } from '../pipes/from-millis/from-millis';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GlobalRequestProvider
   ]
 })
 export class AppModule {}

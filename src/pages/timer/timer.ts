@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the TimerPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { GlobalRequestProvider } from '../../providers/global-request/global-request';
+import { Session } from '../../model/Session';
 
 @IonicPage()
 @Component({
@@ -17,14 +13,20 @@ export class TimerPage {
 
   time: number;
   loop: number;
+  lookLoop:number;
   start:number;
-  records:number[];
+  session:Session;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private grProvider: GlobalRequestProvider
+  ) {
+    this.session = new Session();
     this.time = 0;
     this.start = 0;
     this.loop = 0;
-    this.records = [];
+    this.lookLoop = 0;
   }
 
   ionViewDidLoad() {
@@ -43,13 +45,42 @@ export class TimerPage {
     this.loop = 0;
   }
 
+  lookTime(){
+    this.start = Date.now();
+    this.lookLoop = setInterval(() => {
+      
+      this.time = Date.now() - this.start;
+      if(this.time > (5 * 1000)){
+        this.exitLook();
+        this.run();
+      }
+    }, 5);
+  }
+
+  exitLook():void{
+    clearInterval( this.lookLoop );
+    this.lookLoop = 0;        
+  }
+
   takeTime() {
     if( this.loop == 0 ){
       this.time = 0;
-      this.run();
+      if( this.lookLoop == 0 ) {
+        this.lookTime();
+      } else {
+        this.exitLook();
+        this.run();
+      }
     }else{
       this.stop();
-      this.records.push( this.time );      
+      this.session.updateAverage();
+      this.session.records.push( this.time );
     }
   }
+
+  saveSession(){
+    this.grProvider.saveSession( this.session );
+    this.session = new Session();
+  }  
+  
 }

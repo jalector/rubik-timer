@@ -1,19 +1,19 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Timer</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
 
 <ion-content>
   <div class="time" text-center>
-    <h1 (click)="takeTime() ">[ {{ time | fromMillis }} ]</h1>
+    <h1 (click)="takeTime()" [ngClass]="{'lookTime': lookLoop != 0, 'running': loop != 0}"> {{ time | fromMillis }} </h1>
   </div>
-  <!--
-    TODO: Promedio de la sessión en curso
-  -->
+  <div class="date"><p align="right">Today: {{ session.date }}</p></div>
   <div class="records">
-    <span *ngFor="let record of records; let i = index">{{ i+1 }}. {{ record | fromMillis }} </span>
+    <span class="animated bounceInDown avg">Avg: {{ session.avg  | fromMillis}} </span>
+    <span class="animated bounceInLeft" text-center> Records </span>
+    <span class="animated bounceInRight" *ngFor="let record of session.records; let i = index">{{ i+1 }}. {{ record | fromMillis }} </span>
   </div>
+  <ion-fab bottom right>
+    <button ion-fab> <ion-icon name="add-circle"></ion-icon></button>
+    <ion-fab-list side="top">
+        <button ion-fab> <ion-icon name="add-circle"></ion-icon></button>
+        <button ion-fab (click)="saveSession()"> <ion-icon name="cloud"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Session } from '../../model/Session';
+import { GlobalRequestProvider } from '../../providers/global-request/global-request';
 
 /**
  * Generated class for the HistoryPage page.
@@ -15,7 +17,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HistoryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public sessions:Session[];
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private grProvider: GlobalRequestProvider
+  ) {
+    this.sessions = this.grProvider.loadSessions();
+    console.log("Probando, ", this.sessions);
   }
 
   ionViewDidLoad() {
