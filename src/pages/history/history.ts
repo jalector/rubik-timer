@@ -22,13 +22,14 @@ export class HistoryPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     private grProvider: GlobalRequestProvider
-  ) {
-    this.sessions = this.grProvider.loadSessions();
-    console.log("Probando, ", this.sessions);
+  ) {   
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HistoryPage');
+    this.sessions = this.grProvider.loadSessions();
+    console.log("Probando, ", this.sessions);
   }
 
 }

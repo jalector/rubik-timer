@@ -1,19 +1,36 @@
-
 <ion-content>
   <div class="time" text-center>
-    <h1 (click)="takeTime()" [ngClass]="{'lookTime': lookLoop != 0, 'running': loop != 0}"> {{ time | fromMillis }} </h1>
+    <h1 (click)="takeTime()" [ngClass]="{'lookTime': lookLoop != 0, 'running': loop != 0}"> {{ time | fromMillis }}
+    </h1>
   </div>
-  <div class="date"><p align="right">Today: {{ session.date }}</p></div>
-  <div class="records">
-    <span class="animated bounceInDown avg">Avg: {{ session.avg  | fromMillis}} </span>
-    <span class="animated bounceInLeft" text-center> Records </span>
-    <span class="animated bounceInRight" *ngFor="let record of session.records; let i = index">{{ i+1 }}. {{ record | fromMillis }} </span>
+  <div class="date">
+    <p align="right">Today: {{ session.date }}</p>
+  </div>
+  <div class="content">
+    <div class="animated bounceInDown recordTitle" text-center> Records </div>
+    <div class="animated bounceInLeft avg">
+      <span><strong>All:</strong> <small>{{ session.avg | fromMillis}}</small></span>
+      <span><strong>Best(3):</strong> <small>{{ session.avg3 | fromMillis}}</small></span>
+      <span><strong>Best(5):</strong> <small>{{ session.avg5 | fromMillis}}</small></span>
+      <span><strong>Best(12):</strong> <small> {{ session.avg12 | fromMillis}}</small></span>
+    </div>
+    <div class="records">
+      <span class="animated bounceInRight record" *ngFor="let record of session.records; let i = index">
+        {{ i+1 }}. {{ record | fromMillis }} 
+      </span>
+    </div>
   </div>
   <ion-fab bottom right>
-    <button ion-fab> <ion-icon name="add-circle"></ion-icon></button>
+    <button ion-fab>
+      <ion-icon name="add-circle"></ion-icon>
+    </button>
     <ion-fab-list side="top">
-        <button ion-fab> <ion-icon name="add-circle"></ion-icon></button>
-        <button ion-fab (click)="saveSession()"> <ion-icon name="cloud"></ion-icon></button>
+      <button ion-fab>
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+      <button ion-fab (click)="confirmSaveSession()">
+        <ion-icon name="cloud"></ion-icon>
+      </button>
     </ion-fab-list>
   </ion-fab>
 </ion-content>

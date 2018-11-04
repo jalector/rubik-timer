@@ -4,7 +4,7 @@ export class Session {
     public records:number[];
     public avg:number;
     public avg3:number;
-    public avg6:number;
+    public avg5:number;
     public avg12:number;
 
     constructor( records?:number[]) { 
@@ -13,37 +13,29 @@ export class Session {
         this.date = this.today();
         this.avg = 0; 
         this.avg3 = 0;
-        this.avg6 = 0;
+        this.avg5 = 0;
         this.avg12 = 0;
     }
 
-    calAvg():number {
-        let average:number = 0
-        if(this.records.length > 0){
-          average = this.records.reduce( (ant, cur) => ant + cur) / ( this.records.length+1 );
+    calAvg( limit:number) :number {4
+        let sum:number = 0;
+        if( this.records.length >= limit){
+            for(let i = 0; i < limit; i++){
+                sum += this.records[ i ];
+            }
         }
-        this.avg = average;
-        return average;
+        return ( sum / limit );
     }
 
-    calAvg3():number {
-        let average:number = 0;
-        return average;
-    }
-    calAvg6():number {
-        let average:number = 0;
-        return average;
-    }
-    calAvg12():number {
-        let average:number = 0;
-        return average;
+    newRecord( record:number ):void {
+        this.records.push( record ); 
     }
 
     updateAverage():void {
-        this.calAvg();
-        this.calAvg3();
-        this.calAvg6();
-        this.calAvg12();
+        this.avg = this.calAvg( this.records.length );
+        this.avg3 = this.calAvg( 2 );
+        this.avg5 = this.calAvg( 5 );
+        this.avg12 = this.calAvg( 11 );
     }
 
     public toJson():any {
@@ -52,7 +44,7 @@ export class Session {
             records: this.records,
             avg: this.avg,
             avg3: this.avg3,
-            avg6: this.avg6,
+            avg5: this.avg5,
             avg12: this.avg12            
         }
         return json ; 
@@ -64,7 +56,7 @@ export class Session {
         session.records = json.records;
         session.avg = json.avg;
         session.avg3 = json.avg3;
-        session.avg6 = json.avg6;
+        session.avg5 = json.avg5;
         session.avg12 = json.avg12;
         return session;
     }

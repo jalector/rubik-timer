@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { 
+  IonicPage, 
+  NavController, 
+  NavParams,
+  AlertController,
+  ToastController,
+} from 'ionic-angular';
 
 import { GlobalRequestProvider } from '../../providers/global-request/global-request';
 import { Session } from '../../model/Session';
+import { ENV } from '@app/env';
 
 @IonicPage()
 @Component({
@@ -20,7 +27,9 @@ export class TimerPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private grProvider: GlobalRequestProvider
+    private grProvider: GlobalRequestProvider,
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) {
     this.session = new Session();
     this.time = 0;
@@ -31,6 +40,7 @@ export class TimerPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TimerPage');
+    console.log( ENV );
   }
 
   run ( ) {
@@ -73,14 +83,36 @@ export class TimerPage {
       }
     }else{
       this.stop();
+      this.session.newRecord( this.time );
       this.session.updateAverage();
-      this.session.records.push( this.time );
     }
   }
 
-  saveSession(){
+
+  confirmSaveSession(){
+    if( this.session.avg3 != 0 ) {
+      this.alertCtrl.create({
+        message: 'Todos los registros que tengas se guardarán en tu h istorial. ¿Estás seguro?',
+        buttons: [{
+          text: 'Agree',
+          handler: () => { this.saveSession(); }
+        },{
+          text: 'Abort',
+          role:'cancel'
+        }]
+      }).present();
+    } else {
+      this.toastCtrl.create({
+        message: 'Realiza por lo menos tres registros para guardar',
+        duration: 2000,
+        position: 'top'
+      })
+    }
+  }
+  saveSession(){    
     this.grProvider.saveSession( this.session );
     this.session = new Session();
+
   }  
   
 }

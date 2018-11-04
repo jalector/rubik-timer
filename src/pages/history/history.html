@@ -1,10 +1,19 @@
 <ion-content padding>
   <div class="title"> Session history </div>
-  <div class="session" *ngFor="let session of sessions">
-    <div class="date"> {{ session.date }} </div>
-    <div class="avg"> Average: {{ session.avg | fromMillis }} </div>
-    <div class="records"  *ngFor="let record of session.records">
-      <span> {{ record | fromMillis }}  </span>
+  <div class="sessions" *ngFor="let session of sessions">
+    <div class="content">
+      <div class="animated bounceInDown recordTitle" text-center> Records </div>
+      <div class="animated bounceInLeft avg">
+        <span><strong>All:</strong> <small>{{ session.avg | fromMillis}}</small></span>
+        <span><strong>Best(3):</strong> <small>{{ session.avg3 | fromMillis}}</small></span>
+        <span><strong>Best(5):</strong> <small>{{ session.avg5 | fromMillis}}</small></span>
+        <span><strong>Best(12):</strong> <small> {{ session.avg12 | fromMillis}}</small></span>
+      </div>
+      <div class="records">
+        <span class="animated bounceInRight record" *ngFor="let record of session.records; let i = index">
+          {{ i+1 }}. {{ record | fromMillis }} 
+        </span>
+      </div>
     </div>
   </div> 
 </ion-content>
